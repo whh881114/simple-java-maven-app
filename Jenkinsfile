@@ -9,7 +9,7 @@ pipeline {
     REPOSITORY = "library"                  // 构建后的镜像存放在内部docker仓库中的哪个项目中
     IMAGE = "${env.REGISTRY}/${env.REPOSITORY}/${env.APP_NAME}:${GIT_COMMIT}"
     DOCKERFILE = "Dockerfile"
-    ARGOCD_APP = $APP_NAME
+    ARGOCD_APP = "${env.APP_NAME}"
   }
 
   stages {
