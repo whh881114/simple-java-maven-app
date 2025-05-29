@@ -4,7 +4,7 @@ pipeline {
   environment {
     APP_NAME = "simple-java-maven-app"
     JOB_NAME = "${env.JOB_NAME}"
-    GIT_COMMIT = "${env.JOB_NAME}"
+    GIT_COMMIT = "${env.GIT_COMMIT}"
     WORKSPACE = "${env.WORKSPACE}"
     REGISTRY = "harbor.idc.roywong.work"    // 内部docker仓库地址
     REPOSITORY = "library"                  // 构建后的镜像存放在内部docker仓库中的哪个项目中
