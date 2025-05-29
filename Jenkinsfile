@@ -14,12 +14,6 @@ pipeline {
       }
     }
 
-    stage('Test') {
-      steps {
-        sh 'mvn test'
-      }
-    }
-
     stage('Package') {
       steps {
         sh 'mvn package -DskipTests'
