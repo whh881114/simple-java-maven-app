@@ -28,6 +28,19 @@ pipeline {
       }
     }
 
+    stage('Print Variables') {
+      steps {
+        echo "APP_NAME = ${env.APP_NAME}"
+        echo "JOB_NAME = ${env.JOB_NAME}"
+        echo "GIT_COMMIT = ${env.GIT_COMMIT}"
+        echo "WORKSPACE = ${env.WORKSPACE}"
+        echo "REGISTRY = ${env.REGISTRY}"
+        echo "REPOSITORY = ${env.REPOSITORY}"
+        echo "DOCKERFILE = ${env.DOCKERFILE}"
+        echo "IMAGE = ${env.IMAGE}"
+      }
+    }
+
     stage('Build') {
       steps {
         sh 'mvn clean compile'
