@@ -4,31 +4,18 @@ pipeline {
   environment {
     APP_NAME = "simple-java-maven-app"
     JOB_NAME = "${env.JOB_NAME}"
-    GIT_COMMIT = ""                         // 稍后动态赋值
+    GIT_COMMIT = "${env.JOB_NAME}"
     WORKSPACE = "${env.WORKSPACE}"
     REGISTRY = "harbor.idc.roywong.work"    // 内部docker仓库地址
     REPOSITORY = "library"                  // 构建后的镜像存放在内部docker仓库中的哪个项目中
     DOCKERFILE = "Dockerfile"
-    IMAGE = ""                              // 稍后动态赋值
+    IMAGE = "${env.REGISTRY}/${env.REPOSITORY}/${env.APP_NAME}:${GIT_COMMIT}"
   }
 
   stages {
     stage('Checkout') {
       steps {
         checkout scm
-      }
-    }
-
-    stage('Set Variables') {
-      steps {
-        script {
-          def gitCommit = sh(script: "git rev-parse HEAD", returnStdout: true).trim()
-          def image = "${env.REGISTRY}/${env.REPOSITORY}/${env.APP_NAME}:${gitCommit}"
-
-          // 显式赋值到环境变量
-          env.GIT_COMMIT = gitCommit
-          env.IMAGE = image
-        }
       }
     }
 
