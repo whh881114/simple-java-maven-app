@@ -22,8 +22,12 @@ pipeline {
     stage('Set Variables') {
       steps {
         script {
-          env.GIT_COMMIT = sh(script: "git rev-parse HEAD", returnStdout: true).trim()
-          env.IMAGE = "${env.REGISTRY}/${env.REPOSITORY}/${env.APP_NAME}:${env.GIT_COMMIT}"
+          def gitCommit = sh(script: "git rev-parse HEAD", returnStdout: true).trim()
+          def image = "${env.REGISTRY}/${env.REPOSITORY}/${env.APP_NAME}:${gitCommit}"
+
+          // 显式赋值到环境变量
+          env.GIT_COMMIT = gitCommit
+          env.IMAGE = image
         }
       }
     }
